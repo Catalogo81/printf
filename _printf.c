@@ -1,60 +1,54 @@
-/*
- * File: _printf.c
- * Auth: Kgotso Matjato
- * Ejiofor Obieze
- */
-
 #include "main.h"
 
 /**
- * _printf - Prints out any type of formatted string
- * @format: String character
- *
- * Return: Characters printed
+ * _printf - prints
+ * @format: format for outputs
+ * Return: returns length of string
  */
+
 int _printf(const char *format, ...)
 {
-	int count = 0, i = 0;
-	va_list v_list;
+	va_list args;
+	int i = 0, j, len = 0;
 
-	va_start(v_list, format);
+	format_match m[] = {{"%c", printf_char},
+		{"%s", printf_string},
+		{"%%", printf_37},
+		{"%i", printf_int},
+		{"%d", printf_dec},
+		{"%r", printf_srev},
+		{"%R", printf_rot13},
+		{"%b", printf_bin},
+		{"%u", printf_unsigned},
+		{"%o", printf_oct},
+		{"%x", printf_hex},
+		{"%X", printf_HEX},
+		{"%S", printf_exclusive_string},
+		{"%p", printf_pointer}
+	};
 
+
+	va_start(args, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+Marker:
 	while (format[i] != '\0')
 	{
-		if (format[i] != '%')
+		j = 13;
+		while (j >= 0)
 		{
-			count = count + _putchar(format[i]);
-			i++;
-		}
-		else if (format[i] == '%' && format[i + 1] != ' ')
-		{
-			switch (format[i + 1])
+			if (m[j].id[0] == format[i] && m[j].id[1] == format[i + 1])
 			{
-				case 'c':
-					count = count + _putchar(va_arg(v_list, int));
-					break;
-				case 's':
-					count = count + print_s(va_arg(v_list, char *));
-					break;
-				case '%':
-					count = count + _putchar('%');
-					break;
-				case 'd':
-					count = count + print_d(va_arg(v_list, int));
-					break;
-				case 'i':
-					count = count + print_d(va_arg(v_list, int));
-					break;
-				case 'p':
-					count = count + _putchar('0');
-					count = count + _putchar('x');
-					break;
-				default:
-					break;
+				len += m[j].f(args);
+				i = i + 2;
+				goto Marker;
 			}
-			i += 2;
+			j--;
 		}
+		_putchar(format[i]);
+		len++;
+		i++;
 	}
-	va_end(v_list);
-	return (count);
+	va_end(args);
+	return (len);
 }
