@@ -6,7 +6,7 @@
  *
  * Return: the number
  */
-print_d(int num)
+int print_d(int num)
 {
 	int count = 0;
 
