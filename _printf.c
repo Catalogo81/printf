@@ -31,17 +31,12 @@ int _printf(const char *format, ...)
 			switch (format[i + 1])
 			{
 				case 'c':
-					/*prints the character from the va_args*/
 					count = count + _putchar(va_arg(v_list, int));
 					break;
 				case 's':
-					/* print_s is responsible for iterating through
-					 * the string untill it reaches a '\0'
-					and adds it to the count */
 					count = count + print_s(va_arg(v_list, char *));
 					break;
 				case '%':
-					/*prints the % if its in the printf*/
 					count = count + _putchar('%');
 					break;
 				case 'd':
