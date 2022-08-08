@@ -20,11 +20,11 @@ print_d(int num)
 	/*removes the last digit from a number*/
 	if (num / 10)
 	{
-		count = count + print_d(num / 10);
+		count += print_d(num / 10);
 	}
 
 	/*gets last digit of a number and makes it a character*/
-	count = count + _putchar(num % 10 + '0');
+	count += _putchar(num % 10 + '0');
 
 	return (count);
 }
