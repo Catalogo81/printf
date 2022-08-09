@@ -44,10 +44,18 @@ int _printf(const char *format, ...)
 					break;
 				case 'i':
 					count = count + print_d(va_arg(v_list, int));
+				case 'p':
+					_putchar('0');
+					_putchar('x');
+					break;
 				default:
 					break;
 			}
 			i += 2;
+		}
+		else
+		{
+			_putchar(*format);
 		}
 	}
 	va_end(v_list);
