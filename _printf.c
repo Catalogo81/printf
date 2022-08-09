@@ -44,6 +44,7 @@ int _printf(const char *format, ...)
 					break;
 				case 'i':
 					count = count + print_d(va_arg(v_list, int));
+					break;
 				case 'p':
 					count = count + _putchar('0');
 					count = count + _putchar('x');
