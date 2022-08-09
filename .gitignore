@@ -1,5 +1,2 @@
-#exclude _putchar function
-_putchar.c
-
 #exclude main
 main.c
